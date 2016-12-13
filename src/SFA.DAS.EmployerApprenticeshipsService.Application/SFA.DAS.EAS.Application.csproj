@@ -58,12 +58,12 @@
       <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Types.0.9.135-prerelease\lib\net45\SFA.DAS.Apprenticeships.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Commitments.Api.Client, Version=1.14.0.17022, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Commitments.Api.Client.1.14.0.17022\lib\net45\SFA.DAS.Commitments.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Commitments.Api.Client, Version=1.15.0.17420, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Client.1.15.0.17420\lib\net45\SFA.DAS.Commitments.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=1.14.0.17022, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.1.14.0.17022\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.Commitments.Api.Types, Version=1.15.0.17420, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Commitments.Api.Types.1.15.0.17420\lib\net45\SFA.DAS.Commitments.Api.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SFA.DAS.Events.Api.Client, Version=1.7.0.16714, Culture=neutral, processorArchitecture=MSIL">
@@ -152,6 +152,9 @@
     <Compile Include="Commands\CreateEmployerAgreementTemplate\CreateEmployerAgreementTemplateCommand.cs" />
     <Compile Include="Commands\CreateEmployerAgreementTemplate\CreateEmployerAgreementTemplateCommandHandler.cs" />
     <Compile Include="Commands\CreateEmployerAgreementTemplate\CreateEmployerAgreementTemplateCommandValidator.cs" />
+    <Compile Include="Commands\CreateEnglishFractionCalculationDate\CreateEnglishFractionCalculationDateCommand.cs" />
+    <Compile Include="Commands\CreateEnglishFractionCalculationDate\CreateEnglishFractionCalculationDateCommandHandler.cs" />
+    <Compile Include="Commands\CreateEnglishFractionCalculationDate\CreateEnglishFractionCalculationDateCommandValidator.cs" />
     <Compile Include="Commands\CreateInvitation\CreateInvitationCommand.cs" />
     <Compile Include="Commands\CreateInvitation\CreateInvitationCommandHandler.cs" />
     <Compile Include="Commands\CreateInvitation\CreateInvitationCommandValidator.cs" />
@@ -230,6 +233,10 @@
     <Compile Include="Queries\AccountTransactions\GetAccountTransactions\GetAccountTransactionsRequest.cs" />
     <Compile Include="Queries\AccountTransactions\GetAccountTransactions\GetAccountTransactionsResponse.cs" />
     <Compile Include="Queries\AccountTransactions\GetAccountTransactions\GetAccountTransactionsValidator.cs" />
+    <Compile Include="Queries\AccountTransactions\GetEnglishFrationDetail\GetEnglishFractionDetailByEmpRefQuery.cs" />
+    <Compile Include="Queries\AccountTransactions\GetEnglishFrationDetail\GetEnglishFractionDetailByEmpRefQueryHandler.cs" />
+    <Compile Include="Queries\AccountTransactions\GetEnglishFrationDetail\GetEnglishFractionDetailResposne.cs" />
+    <Compile Include="Queries\AccountTransactions\GetEnglishFrationDetail\GetEnglishFractionDetailValidator.cs" />
     <Compile Include="Queries\FindEmployerAccountPaymentTransactions\FindEmployerAccountPaymentTransactionsHandler.cs" />
     <Compile Include="Queries\FindEmployerAccountPaymentTransactions\FindEmployerAccountPaymentTransactionsQuery.cs" />
     <Compile Include="Queries\FindEmployerAccountPaymentTransactions\FindEmployerAccountPaymentTransactionsQueryValidator.cs" />
@@ -243,7 +250,8 @@
     <Compile Include="Queries\GetAccountLegalEntities\GetAccountLegalEntitiesResponse.cs" />
     <Compile Include="Queries\GetAccountLegalEntities\GetAccountLegalEntitiesValidator.cs" />
     <Compile Include="Queries\GetAccountPayeSchemes\GetAccountPayeSchemesQueryHandler.cs" />
-    <Compile Include="Queries\GetAccountPayeSchemes\GetAccountPayeSchemesRequest.cs" />
+    <Compile Include="Queries\GetAccountPayeSchemes\GetAccountPayeSchemesQueryValidator.cs" />
+    <Compile Include="Queries\GetAccountPayeSchemes\GetAccountPayeSchemesQuery.cs" />
     <Compile Include="Queries\GetAccountPayeSchemes\GetAccountPayeSchemesResponse.cs" />
     <Compile Include="Queries\GetAccountTeamMembers\GetAccountTeamMembersHandler.cs" />
     <Compile Include="Queries\GetAccountTeamMembers\GetAccountTeamMembersQuery.cs" />
@@ -272,6 +280,10 @@
     <Compile Include="Queries\FindEmployerAccountLevyDeclarationTransactions\FindEmployerAccountLevyDeclarationTransactionsHandler.cs" />
     <Compile Include="Queries\FindEmployerAccountLevyDeclarationTransactions\FindEmployerAccountLevyDeclarationTransactionsQueryValidator.cs" />
     <Compile Include="Queries\FindEmployerAccountLevyDeclarationTransactions\FindEmployerAccountLevyDeclarationTransactionsResponse.cs" />
+    <Compile Include="Queries\GetEmployerEnglishFractionHistory\GetEmployerEnglishFractionHandler.cs" />
+    <Compile Include="Queries\GetEmployerEnglishFractionHistory\GetEmployerEnglishFractionQuery.cs" />
+    <Compile Include="Queries\GetEmployerEnglishFractionHistory\GetEmployerEnglishFractionResponse.cs" />
+    <Compile Include="Queries\GetEmployerEnglishFractionHistory\GetEmployerEnglishFractionValidator.cs" />
     <Compile Include="Queries\GetPagedEmployerAccounts\GetPagedAccountsQueryHandler.cs" />
     <Compile Include="Queries\GetPagedEmployerAccounts\GetPagedEmployerAccountsQuery.cs" />
     <Compile Include="Queries\GetPagedEmployerAccounts\GetPagedEmployerAccountsResponse.cs" />
