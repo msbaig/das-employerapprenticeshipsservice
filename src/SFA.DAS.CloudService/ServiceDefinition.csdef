@@ -68,7 +68,7 @@
       <Setting name="LoggingRedisKey" />
     </ConfigurationSettings>
     <Endpoints>
-      <InputEndpoint name="https" protocol="tcp" port="443" certificate="WorkerSslCert" />
+      <InputEndpoint name="fake" protocol="tcp" port="443" certificate="WorkerSslCert" />
     </Endpoints>
     <Certificates>
       <Certificate name="WorkerSslCert" storeLocation="LocalMachine" storeName="My" />
