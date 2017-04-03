@@ -67,5 +67,8 @@
       <Setting name="LoggingRedisConnectionString" />
       <Setting name="LoggingRedisKey" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="WorkerSslCert" storeLocation="LocalMachine" storeName="My" />
+    </Certificates>
   </WorkerRole>
 </ServiceDefinition>
