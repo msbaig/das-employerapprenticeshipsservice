@@ -34,6 +34,7 @@
       <Setting name="TokenServiceCertificateThumbprint" value="__TokenServiceCertificateThumbprint__" />
     </ConfigurationSettings>
     <Certificates>
+    <Certificate name="WorkerSslCert" thumbprint="998DB0E29AA0C0137C594A463A0C7A4D5519C3EC" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
   <Role name="SFA.DAS.EAS.PaymentProvider.Worker">
