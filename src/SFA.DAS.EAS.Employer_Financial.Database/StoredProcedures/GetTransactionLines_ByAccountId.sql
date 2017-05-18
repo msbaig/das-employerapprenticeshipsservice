@@ -6,7 +6,7 @@ AS
 
 select 
     main.*
-    ,bal.balance AS Balance
+    ,IIF(bal.balance > 0, bal.balance, 0) AS Balance
 from
 (
 	select Sum(amount) as balance,accountid 
