@@ -71,5 +71,11 @@ namespace SFA.DAS.EAS.LevyAccountUpdater.WebJob.Updater
                 throw;
             }
         }
+
+        public async Task RunUpdateForSingleAccountAndScheme(long accountId, string payeRef)
+        {
+            _logger.Trace($"{ServiceName}: Creating update levy account message for account (ID: {accountId}) scheme {payeRef}");
+            await _messagePublisher.PublishAsync(new EmployerRefreshLevyQueueMessage { AccountId = accountId, PayeRef = payeRef });
+        }
     }
 }
