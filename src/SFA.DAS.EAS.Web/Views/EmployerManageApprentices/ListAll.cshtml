@@ -11,7 +11,6 @@
     <h1 class="heading-xlarge">Manage your apprentices</h1>
 
 <div class="grid-row">
-
     <div class="column-one-third">
         <form method="GET" action="@Url.Action("ListAll")" novalidate="novalidate">
             @Html.Partial("ApprenticeshipFilters", Model.Data.Filters)          
@@ -80,7 +79,7 @@
 
 
 @section breadcrumb {
-    <div class="breadcrumbs">
+<div class="breadcrumbs">
         <a href="@Url.Action("Index", "EmployerCommitments")" aria-label="Back to apprentices" class="back-link">Back to apprentices</a>
-    </div>
+</div>
 }
