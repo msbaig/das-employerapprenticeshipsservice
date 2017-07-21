@@ -156,9 +156,11 @@
     <Compile Include="Extensions\DateTimeExtention.cs" />
     <Compile Include="MockModels\MockMessage.cs" />
     <Compile Include="MockPolicy\MockMessagePolicy.cs" />
+    <Compile Include="Models\CreatedTestAccountDetails.cs" />
     <Compile Include="ObjectMothers\AddPayeToNewLegalEntityCommandObjectMother.cs" />
     <Compile Include="ObjectMothers\ApprenticeshipObjectMother.cs" />
     <Compile Include="ObjectMothers\DeclarationsObjectMother.cs" />
+    <Compile Include="ObjectMothers\EmployerAccountObjectMother.cs" />
     <Compile Include="ObjectMothers\FrameworkObjectMother.cs" />
     <Compile Include="ObjectMothers\GetHMRCLevyDeclarationResponseObjectMother.cs" />
     <Compile Include="ObjectMothers\LevyDeclarationSourceDataObjectMother.cs" />
