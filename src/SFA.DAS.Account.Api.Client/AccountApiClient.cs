@@ -32,8 +32,7 @@ namespace SFA.DAS.EAS.Account.Api.Client
 
             return JsonConvert.DeserializeObject<AccountDetailViewModel>(json);
         }
-
-        [Obsolete("Only the string based account IDs should be used as long versions are internal only. This method will be deleted soon")]
+        
         public async Task<AccountDetailViewModel> GetAccount(long accountId)
         {
             var baseUrl = GetBaseUrl();
@@ -66,8 +65,7 @@ namespace SFA.DAS.EAS.Account.Api.Client
             var json = await _httpClient.GetAsync(url);
             return JsonConvert.DeserializeObject<ICollection<TeamMemberViewModel>>(json);
         }
-
-        [Obsolete("Only the string based account IDs should be used as long versions are internal only. This method will be deleted soon")]
+       
         public async Task<ICollection<TeamMemberViewModel>> GetAccountUsers(long accountId)
         {
             var baseUrl = GetBaseUrl();
