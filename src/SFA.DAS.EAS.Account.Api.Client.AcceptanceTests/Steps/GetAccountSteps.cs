@@ -37,7 +37,7 @@ namespace SFA.DAS.EAS.Account.Api.Client.AcceptanceTests.Steps
 
             _accountSteps = new AccountSteps();
 
-            var config = ConfigurationHelper.GetConfiguration<IAccountApiConfiguration>("SFA.DAS.EmployerAccountAPI");
+            var config = ConfigurationHelper.GetConfiguration<AccountApiConfiguration>("SFA.DAS.EmployerAccountAPI");
 
             _apiClient = new AccountApiClient(config);
         }

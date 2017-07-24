@@ -84,12 +84,14 @@ namespace SFA.DAS.EAS.TestCommon.ScenarioCommonSteps
             var orchestrator = _container.GetInstance<EmployerAccountOrchestrator>();
 
             var accountViewModel = EmployerAccountObjectMother.CreateViewModel(ownerUserId, organisationName);
-
+            
             var result = orchestrator.CreateAccount(accountViewModel, new Mock<HttpContextBase>().Object).Result;
 
+            var hashingService = _container.GetInstance<IHashingService>();
+            
             return new CreatedTestAccountDetails
             {
-                AccountId = result.Data.EmployerAgreement.AccountId,
+                AccountId = hashingService.DecodeValue(result.Data.EmployerAgreement.HashedAccountId),
                 HashedAccountId = result.Data.EmployerAgreement.HashedAccountId,
                 UserId = ownerUserId,
                 OrganisationName = accountViewModel.OrganisationName,
