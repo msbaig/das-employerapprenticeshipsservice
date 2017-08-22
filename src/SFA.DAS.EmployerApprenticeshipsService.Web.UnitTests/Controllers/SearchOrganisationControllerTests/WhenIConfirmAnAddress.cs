@@ -35,7 +35,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
         }
 
         [Test]
-        public void IfIHaveNoAccountIdThenSomethingHappensLetsSeewhat()
+        public void IfIHaveNoAccountIdThenShowsFindAddressFromEmployerAccountOrganisation()
         {
             var model = new OrganisationDetailsViewModel();
             var result = _controller.Confirm(null, model) as ViewResult;
@@ -43,10 +43,11 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ViewName.Contains("FindAddress"));
             Assert.IsTrue(result.ViewName.Contains("EmployerAccountOrganisation/FindAddress"));
+            Assert.IsTrue(result.Model.GetType()==typeof(OrchestratorResponse<FindOrganisationAddressViewModel>));
         }
 
         [Test]
-        public void IfIHaveAnAccountIdThenSomethingHappensLetsSeewhat()
+        public void IfIHaveAnAccountIdThenShowsFindAddressFromOrganisation()
         {
             var model = new OrganisationDetailsViewModel();
             var result = _controller.Confirm("hasAccountId", model) as ViewResult;
@@ -54,6 +55,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
             Assert.IsNotNull(result);
             Assert.IsTrue(result.ViewName.Contains("FindAddress"));
             Assert.IsTrue(result.ViewName.Contains("Organisation/FindAddress"));
+            Assert.IsTrue(result.Model.GetType() == typeof(OrchestratorResponse<FindOrganisationAddressViewModel>));
         }
     }
 }
