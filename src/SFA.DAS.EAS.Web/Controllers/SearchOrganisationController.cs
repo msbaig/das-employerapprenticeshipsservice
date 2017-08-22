@@ -114,6 +114,32 @@ namespace SFA.DAS.EAS.Web.Controllers
             return RedirectToAction("AddOtherOrganisationDetails", "Organisation");
         }
 
+        //Added by TC
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Route("address/select")]
+        //public async Task<ActionResult> SelectAddress(FindOrganisationAddressViewModel request)
+        //{
+        //    var response = await _orchestrator.GetAddressesFromPostcode(request);
+
+        //    if (response?.Data?.Addresses != null && response.Data.Addresses.Count == 1)
+        //    {
+        //        var viewModel = _mapper.Map<AddOrganisationAddressViewModel>(request);
+
+        //        viewModel.Address = response.Data.Addresses.Single();
+
+        //        var addressResponse = new OrchestratorResponse<AddOrganisationAddressViewModel>
+        //        {
+        //            Data = viewModel,
+        //            Status = HttpStatusCode.OK
+        //        };
+
+        //        return View("AddOrganisationAddress", addressResponse);
+        //    }
+
+        //    return View(response);
+        //}
+
         private ActionResult FindAddress(string hashedAccountId, OrganisationDetailsViewModel organisation)
         {
             var addressViewModel = _mapper.Map<FindOrganisationAddressViewModel>(organisation);

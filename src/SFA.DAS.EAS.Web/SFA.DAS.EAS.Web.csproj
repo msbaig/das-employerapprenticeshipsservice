@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <IISExpressSSLPort>443</IISExpressSSLPort>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1092,6 +1093,7 @@
     <Content Include="src\govuk_elements\sass\elements\forms\_form-multiple-choice.scss" />
     <Content Include="Views\EmployerTeam\NextSteps.cshtml" />
     <Content Include="Views\EmployerAgreement\NextSteps.cshtml" />
+    <Content Include="Views\SearchOrganisation\AddOrganisationAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EmployerApprenticeshipsService.Application\SFA.DAS.EAS.Application.csproj">
