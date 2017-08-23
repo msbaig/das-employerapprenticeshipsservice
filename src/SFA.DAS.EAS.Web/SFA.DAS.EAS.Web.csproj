@@ -1094,6 +1094,7 @@
     <Content Include="Views\EmployerTeam\NextSteps.cshtml" />
     <Content Include="Views\EmployerAgreement\NextSteps.cshtml" />
     <Content Include="Views\SearchOrganisation\AddOrganisationAddress.cshtml" />
+    <Content Include="Views\SearchOrganisation\SelectAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EmployerApprenticeshipsService.Application\SFA.DAS.EAS.Application.csproj">

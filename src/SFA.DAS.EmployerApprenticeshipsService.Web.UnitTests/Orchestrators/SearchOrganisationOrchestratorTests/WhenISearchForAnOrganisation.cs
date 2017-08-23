@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -23,6 +24,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Orchestrators.SearchOrganisationOrchestrator
         private SearchOrganisationOrchestrator _orchestrator;
         private Mock<IMediator> _mediator;
         private Mock<ICookieStorageService<EmployerAccountData>> _cookieService;
+        private Mock<IMapper> _mapper;
 
 
 
@@ -35,7 +37,9 @@ namespace SFA.DAS.EAS.Web.UnitTests.Orchestrators.SearchOrganisationOrchestrator
             _mediator.Setup(x => x.SendAsync(It.IsAny<GetOrganisationsRequest>()))
                 .ReturnsAsync(new GetOrganisationsResponse { Organisations = new PagedResponse<Organisation> { Data = new List<Organisation>() } });
 
-            _orchestrator = new SearchOrganisationOrchestrator(_mediator.Object, _cookieService.Object);
+            _mapper=new Mock<IMapper>();
+
+            _orchestrator = new SearchOrganisationOrchestrator(_mediator.Object, _cookieService.Object, _mapper.Object);
         }
 
         [Test]

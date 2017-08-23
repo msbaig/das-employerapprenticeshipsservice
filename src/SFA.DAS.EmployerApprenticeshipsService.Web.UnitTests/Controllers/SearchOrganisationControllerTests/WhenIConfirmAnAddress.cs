@@ -11,27 +11,12 @@ using SFA.DAS.EAS.Web.ViewModels.Organisation;
 
 namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTests
 {
-    public class WhenIConfirmAnAddress
+    public class WhenIConfirmAnAddress : SearchOrganisationControllerTestsBase
     {
-        private SearchOrganisationController _controller;
-        private Mock<IOwinWrapper> _owinWrapper;
-        private Mock<SearchOrganisationOrchestrator> _orchestrator;
-        private Mock<IFeatureToggle> _featureToggle;
-        private Mock<IMultiVariantTestingService> _multiVariantTestingService;
-        private Mock<ICookieStorageService<FlashMessageViewModel>> _flashMessage;
-        private Mock<IMapper> _mapper;
-
         [SetUp]
         public void Arrange()
         {
-            _owinWrapper = new Mock<IOwinWrapper>();
-            _orchestrator = new Mock<SearchOrganisationOrchestrator>();
-            _featureToggle=new Mock<IFeatureToggle>();
-            _multiVariantTestingService=new Mock<IMultiVariantTestingService>();
-            _flashMessage=new Mock<ICookieStorageService<FlashMessageViewModel>>();
-            _mapper=new Mock<IMapper>();
 
-            _controller=new SearchOrganisationController(_owinWrapper.Object,null,_featureToggle.Object,_multiVariantTestingService.Object, _flashMessage.Object,_mapper.Object);
         }
 
         [Test]
@@ -44,6 +29,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
             Assert.IsTrue(result.ViewName.Contains("FindAddress"));
             Assert.IsTrue(result.ViewName.Contains("EmployerAccountOrganisation/FindAddress"));
             Assert.IsTrue(result.Model.GetType()==typeof(OrchestratorResponse<FindOrganisationAddressViewModel>));
+            Assert.AreEqual("true", result.ViewBag.HideNav);
         }
 
         [Test]
@@ -56,6 +42,8 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
             Assert.IsTrue(result.ViewName.Contains("FindAddress"));
             Assert.IsTrue(result.ViewName.Contains("Organisation/FindAddress"));
             Assert.IsTrue(result.Model.GetType() == typeof(OrchestratorResponse<FindOrganisationAddressViewModel>));
+            Assert.NotNull(result.ViewData);
+            Assert.AreEqual("false", result.ViewBag.HideNav);
         }
     }
 }

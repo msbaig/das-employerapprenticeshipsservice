@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -115,42 +116,45 @@ namespace SFA.DAS.EAS.Web.Controllers
         }
 
         //Added by TC
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Route("address/select")]
-        //public async Task<ActionResult> SelectAddress(FindOrganisationAddressViewModel request)
-        //{
-        //    var response = await _orchestrator.GetAddressesFromPostcode(request);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("address/select")]
+        public async Task<ActionResult> SelectAddress(FindOrganisationAddressViewModel request)
+        {
+            var response = await _orchestrator.GetAddressesFromPostcode(request);
 
-        //    if (response?.Data?.Addresses != null && response.Data.Addresses.Count == 1)
-        //    {
-        //        var viewModel = _mapper.Map<AddOrganisationAddressViewModel>(request);
+            if (response?.Data?.Addresses != null && response.Data.Addresses.Count == 1)
+            {
+                var viewModel = _mapper.Map<AddOrganisationAddressViewModel>(request);
 
-        //        viewModel.Address = response.Data.Addresses.Single();
+                viewModel.Address = response.Data.Addresses.Single();
 
-        //        var addressResponse = new OrchestratorResponse<AddOrganisationAddressViewModel>
-        //        {
-        //            Data = viewModel,
-        //            Status = HttpStatusCode.OK
-        //        };
+                var addressResponse = new OrchestratorResponse<AddOrganisationAddressViewModel>
+                {
+                    Data = viewModel,
+                    Status = HttpStatusCode.OK
+                };
 
-        //        return View("AddOrganisationAddress", addressResponse);
-        //    }
+                return View("AddOrganisationAddress", addressResponse);
+            }
 
-        //    return View(response);
-        //}
+            return View(response);
+        }
 
         private ActionResult FindAddress(string hashedAccountId, OrganisationDetailsViewModel organisation)
         {
             var addressViewModel = _mapper.Map<FindOrganisationAddressViewModel>(organisation);
             var response = new OrchestratorResponse<FindOrganisationAddressViewModel> { Data = addressViewModel };
 
+
             if (string.IsNullOrEmpty(hashedAccountId))
             {
+                ViewBag.HideNav = "true";
                 return View("../EmployerAccountOrganisation/FindAddress", response);
             }
             else
             {
+                ViewBag.HideNav = "false";
                 return View("../Organisation/FindAddress", response);
             }
         }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
 using MediatR;
 using SFA.DAS.EAS.Application;
 using SFA.DAS.EAS.Application.Queries.GetOrganisations;
@@ -13,6 +14,7 @@ using SFA.DAS.EAS.Domain.Models.ReferenceData;
 using SFA.DAS.EAS.Web.Helpers;
 using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.EAS.Web.ViewModels.Organisation;
+using SFA.DAS.EAS.Application.Queries.GetPostcodeAddress;
 
 namespace SFA.DAS.EAS.Web.Orchestrators
 {
@@ -20,11 +22,13 @@ namespace SFA.DAS.EAS.Web.Orchestrators
     {
         private readonly ICookieStorageService<EmployerAccountData> _cookieService;
         private const string CookieName = "sfa-das-employerapprenticeshipsservice-employeraccount";
+        private readonly IMapper _mapper;
 
-        public SearchOrganisationOrchestrator(IMediator mediator, ICookieStorageService<EmployerAccountData> cookieService)
+        public SearchOrganisationOrchestrator(IMediator mediator, ICookieStorageService<EmployerAccountData> cookieService, IMapper mapper)
             : base(mediator)
         {
             _cookieService = cookieService;
+            _mapper = mapper;
         }
 
         public async Task<OrchestratorResponse<SearchOrganisationResultsViewModel>> SearchOrganisation(string searchTerm, int pageNumber, OrganisationType? organisationType, string hashedAccountId, string userId)
@@ -100,6 +104,49 @@ namespace SFA.DAS.EAS.Web.Orchestrators
                 PublicSectorDataSource = (short?)organisation.SubType,
                 Sector = organisation.Sector
             };
+        }
+
+        //TC added
+
+        public virtual async Task<OrchestratorResponse<SelectOrganisationAddressViewModel>> GetAddressesFromPostcode(
+            FindOrganisationAddressViewModel request)
+        {
+            var viewModel = new SelectOrganisationAddressViewModel
+            {
+                Postcode = request.Postcode,
+                OrganisationName = request.OrganisationName,
+                OrganisationDateOfInception = request.OrganisationDateOfInception,
+                OrganisationHashedId = request.OrganisationHashedId,
+                OrganisationReferenceNumber = request.OrganisationReferenceNumber,
+                OrganisationStatus = request.OrganisationStatus,
+                OrganisationType = request.OrganisationType,
+                PublicSectorDataSource = request.PublicSectorDataSource,
+                Sector = request.Sector
+            };
+
+            try
+            {
+                var addresses = await Mediator.SendAsync(new GetPostcodeAddressRequest { Postcode = request.Postcode });
+
+                viewModel.Addresses = addresses?.Addresses?.Select(x => _mapper.Map<AddressViewModel>(x)).ToList();
+
+                return new OrchestratorResponse<SelectOrganisationAddressViewModel>
+                {
+                    Data = viewModel,
+                    Status = HttpStatusCode.OK
+                };
+            }
+            catch (InvalidRequestException e)
+            {
+                viewModel.ErrorDictionary = e.ErrorMessages;
+
+                return new OrchestratorResponse<SelectOrganisationAddressViewModel>
+                {
+                    Data = viewModel,
+                    Status = HttpStatusCode.BadRequest,
+                    Exception = e
+                };
+            }
         }
     }
 }
