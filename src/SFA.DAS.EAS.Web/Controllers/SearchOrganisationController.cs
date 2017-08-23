@@ -150,12 +150,13 @@ namespace SFA.DAS.EAS.Web.Controllers
             if (string.IsNullOrEmpty(hashedAccountId))
             {
                 ViewBag.HideNav = "true";
-                return View("../EmployerAccountOrganisation/FindAddress", response);
+                return View("FindAddress", response);
             }
             else
             {
                 ViewBag.HideNav = "false";
-                return View("../Organisation/FindAddress", response);
+                ViewBag.Section = "organisations";
+                return View("FindAddress", response);
             }
         }
 

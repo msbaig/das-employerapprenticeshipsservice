@@ -88,7 +88,6 @@ namespace SFA.DAS.EAS.Web.Controllers
                 return View("ConfirmOrganisationDetails", organisationDetailsViewModel);
             }
 
-
             if (request.Address == null)
             {
                 request.Address = new AddressViewModel();
@@ -269,24 +268,6 @@ namespace SFA.DAS.EAS.Web.Controllers
                         }
                     });
             }
-        }
-
-        private async Task<OrchestratorResponse<PublicSectorOrganisationSearchResultsViewModel>> FindPublicSectorOrganisation(string publicSectorOrganisationName, string hashedAccountId, string userIdClaim)
-        {
-            var response = await _orchestrator.FindPublicSectorOrganisation(publicSectorOrganisationName, hashedAccountId, userIdClaim);
-            return response;
-        }
-
-        private async Task<OrchestratorResponse<OrganisationDetailsViewModel>> FindCompany(string companiesHouseNumber, string hashedAccountId, string userIdClaim)
-        {
-            var response = await _orchestrator.GetLimitedCompanyByRegistrationNumber(companiesHouseNumber, hashedAccountId, userIdClaim);
-            return response;
-        }
-
-        private async Task<OrchestratorResponse<OrganisationDetailsViewModel>> FindCharity(string charityRegNo, string hashedAccountId, string userIdClaim)
-        {
-            var response = await _orchestrator.GetCharityByRegistrationNumber(charityRegNo, hashedAccountId, userIdClaim);
-            return response;
         }
     }
 }
