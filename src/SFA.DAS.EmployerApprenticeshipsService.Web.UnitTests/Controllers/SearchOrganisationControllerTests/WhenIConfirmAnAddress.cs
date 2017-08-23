@@ -1,23 +1,14 @@
 ﻿using System.Web.Mvc;
-using AutoMapper;
-using Moq;
 using NUnit.Framework;
-using SFA.DAS.EAS.Domain.Interfaces;
-using SFA.DAS.EAS.Web.Authentication;
-using SFA.DAS.EAS.Web.Controllers;
-using SFA.DAS.EAS.Web.Orchestrators;
-using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.EAS.Web.ViewModels.Organisation;
 
 namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTests
 {
     public class WhenIConfirmAnAddress : SearchOrganisationControllerTestsBase
     {
-        [SetUp]
-        public void Arrange()
-        {
+        public override void CustomSetup()
+        { }          
 
-        }
 
         [Test]
         public void IfIHaveNoAccountIdThenShowsFindAddressFromEmployerAccountOrganisation()

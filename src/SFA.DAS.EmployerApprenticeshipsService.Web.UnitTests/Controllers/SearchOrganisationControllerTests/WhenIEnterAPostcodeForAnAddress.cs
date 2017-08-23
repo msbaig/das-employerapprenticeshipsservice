@@ -2,16 +2,9 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.EAS.Domain.Interfaces;
-using SFA.DAS.EAS.Web.Authentication;
-using SFA.DAS.EAS.Web.Controllers;
-using SFA.DAS.EAS.Web.Orchestrators;
-using SFA.DAS.EAS.Web.ViewModels;
 using SFA.DAS.EAS.Web.ViewModels.Organisation;
-using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTests
 {
@@ -19,12 +12,9 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
     {
         private SelectOrganisationAddressViewModel _viewModel;
 
-        [SetUp]
-        public void Arrange()
+        public override void CustomSetup()
         {
-            Setup();
-
-            _viewModel =  new SelectOrganisationAddressViewModel();
+            _viewModel = new SelectOrganisationAddressViewModel();
 
             _orchestrator.Setup(x => x.GetAddressesFromPostcode(It.IsAny<FindOrganisationAddressViewModel>()))
                 .ReturnsAsync(new OrchestratorResponse<SelectOrganisationAddressViewModel>()
@@ -38,14 +28,10 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
                 {
                     Address = new AddressViewModel()
                 });
-
-
-            _controller = new SearchOrganisationController(_owinWrapper.Object, null, _featureToggle.Object, null, _flashMessage.Object, _mapper.Object);
-
         }
 
         [Test]
-        public async Task ThenIfASignleAddressIsFoundTheAddressViewShouldBePresented()
+        public async Task ThenIfASingleAddressIsFoundTheAddressViewShouldBePresented()
         {
             //Arange
             _viewModel.Addresses = new List<AddressViewModel>
@@ -61,7 +47,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
         }
 
         [Test]
-        public async Task ThenIfAMultiAddressesAreFoundTheSelectAddressViewShouldBePresented()
+        public async Task ThenIfMultiAddressesAreFoundTheSelectAddressViewShouldBePresented()
         {
             //Arange
             _viewModel.Addresses = new List<AddressViewModel>

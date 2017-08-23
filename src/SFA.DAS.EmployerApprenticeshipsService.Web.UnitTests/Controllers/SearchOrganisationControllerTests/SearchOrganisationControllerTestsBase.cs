@@ -24,7 +24,14 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
         protected Mock<ICookieStorageService<FlashMessageViewModel>> _flashMessage;
         protected Mock<IMapper> _mapper;
 
-        public void Setup()
+        public SearchOrganisationControllerTestsBase()
+        {
+            Setup();
+            CustomSetup();
+            InstantiateController();
+        }
+
+        private void Setup()
         {
             _owinWrapper = new Mock<IOwinWrapper>();
             _orchestrator = new Mock<SearchOrganisationOrchestrator>();
@@ -32,8 +39,13 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
             _multiVariantTestingService = new Mock<IMultiVariantTestingService>();
             _flashMessage = new Mock<ICookieStorageService<FlashMessageViewModel>>();
             _mapper = new Mock<IMapper>();
+        }
 
-            _controller = new SearchOrganisationController(_owinWrapper.Object, null, _featureToggle.Object, _multiVariantTestingService.Object, _flashMessage.Object, _mapper.Object);
+        public abstract void CustomSetup();
+
+        private void InstantiateController()
+        {
+            _controller = new SearchOrganisationController(_owinWrapper.Object, _orchestrator.Object, _featureToggle.Object, _multiVariantTestingService.Object, _flashMessage.Object, _mapper.Object);
         }
     }
 }

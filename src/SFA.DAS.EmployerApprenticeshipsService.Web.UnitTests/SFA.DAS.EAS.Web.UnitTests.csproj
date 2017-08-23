@@ -173,6 +173,7 @@
     <Compile Include="Controllers\InvitationControllerTests\WhenViewingInvitations.cs" />
     <Compile Include="Controllers\OrganisationControllerTests\WhenIViewNextSteps.cs" />
     <Compile Include="Controllers\SearchOrganisationControllerTests\SearchOrganisationControllerTestsBase.cs" />
+    <Compile Include="Controllers\SearchOrganisationControllerTests\WhenIConfirmAddOfOrganisation.cs" />
     <Compile Include="Controllers\SearchOrganisationControllerTests\WhenIConfirmAnAddress.cs" />
     <Compile Include="Controllers\SearchOrganisationControllerTests\WhenIEnterAPostcodeForAnAddress.cs" />
     <Compile Include="Infrastructure\StructureMapRegistrationTests\WhenAddingLogging.cs" />

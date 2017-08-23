@@ -24,6 +24,8 @@ namespace SFA.DAS.EAS.Web.Orchestrators
         private const string CookieName = "sfa-das-employerapprenticeshipsservice-employeraccount";
         private readonly IMapper _mapper;
 
+        protected SearchOrganisationOrchestrator() { }
+
         public SearchOrganisationOrchestrator(IMediator mediator, ICookieStorageService<EmployerAccountData> cookieService, IMapper mapper)
             : base(mediator)
         {
