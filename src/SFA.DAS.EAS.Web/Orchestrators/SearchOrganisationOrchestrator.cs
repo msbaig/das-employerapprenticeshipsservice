@@ -6,6 +6,7 @@ using System.Web;
 using AutoMapper;
 using MediatR;
 using SFA.DAS.EAS.Application;
+using SFA.DAS.EAS.Application.Commands.CreateOrganisationAddress;
 using SFA.DAS.EAS.Application.Queries.GetOrganisations;
 using SFA.DAS.EAS.Domain.Interfaces;
 using SFA.DAS.EAS.Domain.Models.Account;
@@ -147,6 +148,52 @@ namespace SFA.DAS.EAS.Web.Orchestrators
                     Data = viewModel,
                     Status = HttpStatusCode.BadRequest,
                     Exception = e
+                };
+            }
+        }
+
+        public virtual OrchestratorResponse<OrganisationDetailsViewModel> AddOrganisationAddress(
+            AddOrganisationAddressViewModel viewModel)
+        {
+            try
+            {
+                var request = _mapper.Map<CreateOrganisationAddressRequest>(viewModel.Address);
+
+                var response = Mediator.Send(request);
+
+                return new OrchestratorResponse<OrganisationDetailsViewModel>
+                {
+                    Data = new OrganisationDetailsViewModel
+                    {
+                        HashedId = viewModel.OrganisationHashedId,
+                        Name = viewModel.OrganisationName,
+                        Address = response.Address,
+                        DateOfInception = viewModel.OrganisationDateOfInception,
+                        ReferenceNumber = viewModel.OrganisationReferenceNumber ?? string.Empty,
+                        Type = viewModel.OrganisationType,
+                        PublicSectorDataSource = viewModel.PublicSectorDataSource,
+                        Status = viewModel.OrganisationStatus,
+                        Sector = viewModel.Sector
+                    }
+                };
+            }
+            catch (InvalidRequestException e)
+            {
+                return new OrchestratorResponse<OrganisationDetailsViewModel>
+                {
+                    Data = new OrganisationDetailsViewModel
+                    {
+                        ErrorDictionary = e.ErrorMessages
+                    },
+                    Status = HttpStatusCode.BadRequest,
+                    Exception = e,
+                    FlashMessage = new FlashMessageViewModel
+                    {
+                        Headline = "Errors to fix",
+                        Message = "Check the following details:",
+                        ErrorMessages = e.ErrorMessages,
+                        Severity = FlashMessageSeverityLevel.Error
+                    }
                 };
             }
         }

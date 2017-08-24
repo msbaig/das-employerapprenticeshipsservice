@@ -218,5 +218,69 @@ namespace SFA.DAS.EAS.Web.Controllers
 
             _orchestrator.CreateCookieData(HttpContext, data);
         }
+
+        private void CreateOrganisationCookieData(OrchestratorResponse<OrganisationDetailsViewModel> response)
+        {
+            EmployerAccountData data;
+            if (response.Data?.Name != null)
+            {
+                data = new EmployerAccountData
+                {
+                    OrganisationType = response.Data.Type,
+                    OrganisationReferenceNumber = response.Data.ReferenceNumber,
+                    OrganisationName = response.Data.Name,
+                    OrganisationDateOfInception = response.Data.DateOfInception,
+                    OrganisationRegisteredAddress = response.Data.Address,
+                    OrganisationStatus = response.Data.Status ?? string.Empty,
+                    PublicSectorDataSource = response.Data.PublicSectorDataSource,
+                    Sector = response.Data.Sector
+                };
+            }
+            else
+            {
+                var existingData = _orchestrator.GetCookieData(HttpContext);
+
+                data = new EmployerAccountData
+                {
+                    OrganisationType = existingData.OrganisationType,
+                    OrganisationReferenceNumber = existingData.OrganisationReferenceNumber,
+                    OrganisationName = existingData.OrganisationName,
+                    OrganisationDateOfInception = existingData.OrganisationDateOfInception,
+                    OrganisationRegisteredAddress = existingData.OrganisationRegisteredAddress,
+                    OrganisationStatus = existingData.OrganisationStatus,
+                    PublicSectorDataSource = existingData.PublicSectorDataSource,
+                    Sector = existingData.Sector
+                };
+            }
+
+            _orchestrator.CreateCookieData(HttpContext, data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("address/update")]
+        public ActionResult UpdateOrganisationAddress(AddOrganisationAddressViewModel request)
+        {
+            var response = _orchestrator.AddOrganisationAddress(request);
+
+            if (response.Status == HttpStatusCode.BadRequest)
+            {
+                request.Address = request.Address ?? new AddressViewModel();
+                request.Address.ErrorDictionary = response.Data.ErrorDictionary;
+
+                var errorResponse = new OrchestratorResponse<AddOrganisationAddressViewModel>
+                {
+                    Data = request,
+                    Status = HttpStatusCode.BadRequest,
+                    Exception = response.Exception,
+                    FlashMessage = response.FlashMessage
+                };
+
+                return View("AddOrganisationAddress", errorResponse);
+            }
+            CreateOrganisationCookieData(response);
+
+            return RedirectToAction("GatewayInform", "EmployerAccount", response.Data);
+        }
     }
 }

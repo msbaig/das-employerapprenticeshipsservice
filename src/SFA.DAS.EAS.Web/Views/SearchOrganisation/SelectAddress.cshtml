@@ -24,7 +24,7 @@
                 <ol class="search-results">
                     @foreach (var address in Model.Data.Addresses)
                     {
-                        var url = Url.Action("UpdateOrganisationAddress", "EmployerAccountOrganisation", new
+                        var url = Url.Action("UpdateOrganisationAddress", "SearchOrganisation", new
                         {
                             Model.Data.OrganisationName,
                             Model.Data.OrganisationReferenceNumber,
