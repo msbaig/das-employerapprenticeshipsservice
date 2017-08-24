@@ -35,7 +35,7 @@ namespace SFA.DAS.EAS.Web.UnitTests.Controllers.SearchOrganisationControllerTest
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.ViewName.Contains("Organisation/ConfirmOrganisationDetails"));
+            Assert.IsTrue(result.ViewName.Contains("ConfirmOrganisationDetails"));
         }
 
         [Test]

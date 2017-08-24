@@ -22,8 +22,6 @@ namespace SFA.DAS.EAS.Web.Orchestrators
     public class EmployerAccountOrchestrator : EmployerVerificationOrchestratorBase
     {
         private readonly IMediator _mediator;
-        private readonly ILog _logger;
-        private readonly IHashingService _hashingService;
         private const string CookieName = "sfa-das-employerapprenticeshipsservice-employeraccount";
 
         //Needed for tests
@@ -36,8 +34,6 @@ namespace SFA.DAS.EAS.Web.Orchestrators
             : base(mediator, logger, cookieService, configuration)
         {
             _mediator = mediator;
-            _logger = logger;
-            _hashingService = hashingService;
         }
 
         public virtual async Task<OrchestratorResponse<EmployerAgreementViewModel>> CreateAccount(CreateAccountViewModel viewModel, HttpContextBase context)
