@@ -41,7 +41,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search", Order = 1)]
         public ActionResult SearchForOrganisation(string hashedAccountId)
         {
-            TakeActionOnWhetherACurrentUser(hashedAccountId);
+            HideMenu(hashedAccountId);
             return View("SearchForOrganisation");
         }
 
@@ -50,7 +50,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search", Order = 1)]
         public ActionResult SearchForOrganisation(string hashedAccountId, string searchTerm)
         {
-            TakeActionOnWhetherACurrentUser(hashedAccountId);
+            HideMenu(hashedAccountId);
             if (string.IsNullOrEmpty(searchTerm))
             {
                 return View("SearchForOrganisation");
@@ -63,7 +63,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search/results", Order = 1)]
         public async Task<ActionResult> SearchForOrganisationResults(string hashedAccountId, string searchTerm, int pageNumber = 1, OrganisationType? organisationType = null)
         {
-            TakeActionOnWhetherACurrentUser(hashedAccountId);
+            HideMenu(hashedAccountId);
             OrchestratorResponse<SearchOrganisationResultsViewModel> model;
             if (string.IsNullOrEmpty(searchTerm))
             {
@@ -85,7 +85,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         {
             viewModel.NewSearch = true;
 
-            TakeActionOnWhetherACurrentUser(hashedAccountId);
+            HideMenu(hashedAccountId);
             if (string.IsNullOrWhiteSpace(viewModel.Address))
             {
                 return FindAddress(viewModel);
@@ -108,7 +108,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search/manualAdd", Order = 1)]
         public ActionResult AddOtherOrganisationDetails(string hashedAccountId)
         {
-            TakeActionOnWhetherACurrentUser(hashedAccountId);
+            HideMenu(hashedAccountId);
 
             return RedirectToAction("AddOtherOrganisationDetails");
         }
@@ -164,17 +164,9 @@ namespace SFA.DAS.EAS.Web.Controllers
             return View("FindAddress", response);
         }
 
-        private void TakeActionOnWhetherACurrentUser(string hashedAccountId)
+        private void HideMenu(string hashedAccountId)
         {
-            if (string.IsNullOrEmpty(hashedAccountId))
-            {
-                ViewBag.HideNav = "true";
-            }
-            else
-            {
-                ViewBag.HideNav = "false";
-                ViewBag.Section = "organisations";
-            }
+            ViewBag.HideNav = string.IsNullOrEmpty(hashedAccountId);
         }
 
         private OrchestratorResponse<T> CreateSearchTermValidationErrorModel<T>(T data)
