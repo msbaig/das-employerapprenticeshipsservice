@@ -197,5 +197,45 @@ namespace SFA.DAS.EAS.Web.Orchestrators
                 };
             }
         }
+
+        public OrchestratorResponse<OrganisationDetailsViewModel> StartConfirmOrganisationDetails(AddOrganisationAddressViewModel request)
+        {
+            return new OrchestratorResponse<OrganisationDetailsViewModel>
+            {
+                Data = new OrganisationDetailsViewModel
+                {
+                    HashedId = request.OrganisationHashedId,
+                    Name = request.OrganisationName,
+                    Address = request.OrganisationAddress,
+                    DateOfInception = request.OrganisationDateOfInception,
+                    ReferenceNumber = request.OrganisationReferenceNumber ?? string.Empty,
+                    Type = request.OrganisationType,
+                    PublicSectorDataSource = request.PublicSectorDataSource,
+                    Status = request.OrganisationStatus,
+                    Sector = request.Sector
+                }
+            };
+        }
+
+        public OrchestratorResponse<OrganisationDetailsViewModel> StartConfirmOrganisationDetails(FindOrganisationAddressViewModel request)
+        {
+            return new OrchestratorResponse<OrganisationDetailsViewModel>
+            {
+                Data = new OrganisationDetailsViewModel
+                {
+                    HashedId = request.OrganisationHashedId,
+                    Name = request.OrganisationName,
+                    Address = request.OrganisationAddress,
+                    DateOfInception = request.OrganisationDateOfInception,
+                    ReferenceNumber = request.OrganisationReferenceNumber ?? string.Empty,
+                    Type = request.OrganisationType,
+                    PublicSectorDataSource = request.PublicSectorDataSource,
+                    Status = request.OrganisationStatus,
+                    Sector = request.Sector
+                }
+            };
+        }
     }
+
+
 }

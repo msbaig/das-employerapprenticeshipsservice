@@ -15,7 +15,7 @@
             if (Model?.Data?.Addresses == null || !Model.Data.Addresses.Any())
             {
 
-                noAddressesFound = $"No address found for the postcode {Model.Data.Postcode}";
+                noAddressesFound = $"No address found for the postcode {Model.Data?.Postcode}";
 
             }
             else

@@ -115,10 +115,10 @@ namespace SFA.DAS.EAS.Web.Controllers
             return RedirectToAction("AddOtherOrganisationDetails", "Organisation");
         }
 
-        //Added by TC
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("address/select")]
+        [Route("{HashedAccountId}/address/select", Order = 0)]
+        [Route("address/select", Order = 1)]       
         public async Task<ActionResult> SelectAddress(FindOrganisationAddressViewModel request)
         {
             var response = await _orchestrator.GetAddressesFromPostcode(request);
@@ -256,9 +256,36 @@ namespace SFA.DAS.EAS.Web.Controllers
             _orchestrator.CreateCookieData(HttpContext, data);
         }
 
+        [HttpGet]
+        [Route("{HashedAccountId}/address/update", Order = 0)]
+        [Route("address/update", Order =1)]
+        public ActionResult AddOrganisationAddress(AddOrganisationAddressViewModel request)
+        {
+
+            if (!string.IsNullOrEmpty(request.OrganisationAddress))
+            {
+                var organisationDetailsViewModel = _orchestrator.StartConfirmOrganisationDetails(request);
+                return View("ConfirmOrganisationDetails", organisationDetailsViewModel);
+            }
+
+            if (request.Address == null)
+            {
+                request.Address = new AddressViewModel();
+            }
+
+            var response = new OrchestratorResponse<AddOrganisationAddressViewModel>
+            {
+                Data = request,
+                Status = HttpStatusCode.OK
+            };
+
+            return View("AddOrganisationAddress", response);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("address/update")]
+        [Route("{HashedAccountId}/address/update", Order = 0)]
+        [Route("address/update", Order=1)]
         public ActionResult UpdateOrganisationAddress(AddOrganisationAddressViewModel request)
         {
             var response = _orchestrator.AddOrganisationAddress(request);
