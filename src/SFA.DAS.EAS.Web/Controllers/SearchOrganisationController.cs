@@ -40,6 +40,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search", Order = 1)]
         public ActionResult SearchForOrganisation(string hashedAccountId)
         {
+            HideMenu(hashedAccountId);
             var model = new OrchestratorResponse<SearchOrganisationViewModel> { Data = new SearchOrganisationViewModel { IsExistingAccount = !string.IsNullOrEmpty(hashedAccountId) } };
             return View("SearchForOrganisation", model);
         }
@@ -49,6 +50,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search", Order = 1)]
         public ActionResult SearchForOrganisation(string hashedAccountId, string searchTerm)
         {
+            HideMenu(hashedAccountId);
             if (string.IsNullOrEmpty(searchTerm))
             {
                 var model = CreateSearchTermValidationErrorModel(new SearchOrganisationViewModel { IsExistingAccount = !string.IsNullOrEmpty(hashedAccountId)});
@@ -62,6 +64,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search/results", Order = 1)]
         public async Task<ActionResult> SearchForOrganisationResults(string hashedAccountId, string searchTerm, int pageNumber = 1, OrganisationType? organisationType = null)
         {
+            HideMenu(hashedAccountId);
             OrchestratorResponse<SearchOrganisationResultsViewModel> model;
             if (string.IsNullOrEmpty(searchTerm))
             {
@@ -82,6 +85,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search/confirm", Order = 1)]
         public ActionResult Confirm(string hashedAccountId, OrganisationDetailsViewModel viewModel)
         {
+            HideMenu(hashedAccountId);
             viewModel.NewSearch = true;
 
             if (string.IsNullOrWhiteSpace(viewModel.Address))
@@ -106,6 +110,7 @@ namespace SFA.DAS.EAS.Web.Controllers
         [Route("organisations/search/manualAdd", Order = 1)]
         public ActionResult AddOtherOrganisationDetails(string hashedAccountId)
         {
+            HideMenu(hashedAccountId);
             if (string.IsNullOrEmpty(hashedAccountId))
             {
                 return RedirectToAction("AddOtherOrganisationDetails");//, "EmployerAccountOrganisation"); now shared
@@ -116,6 +121,7 @@ namespace SFA.DAS.EAS.Web.Controllers
 
         private ActionResult FindAddress(string hashedAccountId, OrganisationDetailsViewModel organisation)
         {
+            //HideMenu(hashedAccountId);
             var addressViewModel = _mapper.Map<FindOrganisationAddressViewModel>(organisation);
             var response = new OrchestratorResponse<FindOrganisationAddressViewModel> { Data = addressViewModel };
 
@@ -187,5 +193,14 @@ namespace SFA.DAS.EAS.Web.Controllers
 
             _orchestrator.CreateCookieData(HttpContext, data);
         }
+
+        private void HideMenu(string hashedAccountId)
+        {
+            if (string.IsNullOrEmpty(hashedAccountId))
+                ViewBag.HideNav = "true";
+            ViewBag.HideNav = "false";
+        }
     }
+
+
 }
