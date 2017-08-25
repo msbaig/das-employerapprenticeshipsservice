@@ -52,10 +52,10 @@ namespace SFA.DAS.EAS.Web.Controllers
             if (string.IsNullOrEmpty(searchTerm))
             {
                 var model = CreateSearchTermValidationErrorModel(new SearchOrganisationViewModel { IsExistingAccount = !string.IsNullOrEmpty(hashedAccountId)});
-                return View("SearchForOrganisation", model);
+                return View("SearchForOrganisation", model);                                            //this view unique to this controller
             }
 
-            return RedirectToAction("SearchForOrganisationResults", new { hashedAccountId, searchTerm });
+            return RedirectToAction("SearchForOrganisationResults", new { hashedAccountId, searchTerm }); //this view unique to this controller
         }
 
         [Route("{HashedAccountId}/organisations/search/results", Order = 0)]
@@ -74,7 +74,7 @@ namespace SFA.DAS.EAS.Web.Controllers
             }
             model.Data.IsExistingAccount = !string.IsNullOrEmpty(hashedAccountId);
 
-            return View("SearchForOrganisationResults", model);
+            return View("SearchForOrganisationResults", model);                                 //this view unique to this controller
         }
 
         [HttpPost]
@@ -98,7 +98,7 @@ namespace SFA.DAS.EAS.Web.Controllers
             
             var response = new OrchestratorResponse<OrganisationDetailsViewModel> { Data = viewModel };
             
-            return View("../Organisation/ConfirmOrganisationDetails", response);
+            return View("ConfirmOrganisationDetails", response);            //I've put this into shared
         }
 
         [HttpGet]
@@ -108,10 +108,10 @@ namespace SFA.DAS.EAS.Web.Controllers
         {
             if (string.IsNullOrEmpty(hashedAccountId))
             {
-                return RedirectToAction("AddOtherOrganisationDetails", "EmployerAccountOrganisation");
+                return RedirectToAction("AddOtherOrganisationDetails");//, "EmployerAccountOrganisation"); now shared
             }
 
-            return RedirectToAction("AddOtherOrganisationDetails", "Organisation");
+            return RedirectToAction("AddOtherOrganisationDetails");//, "Organisation"); now shared
         }
 
         private ActionResult FindAddress(string hashedAccountId, OrganisationDetailsViewModel organisation)
@@ -121,11 +121,11 @@ namespace SFA.DAS.EAS.Web.Controllers
 
             if (string.IsNullOrEmpty(hashedAccountId))
             {
-                return View("../EmployerAccountOrganisation/FindAddress", response);
+                return View("FindAddress", response); //View("../EmployerAccountOrganisation/FindAddress", response);
             }
             else
             {
-                return View("../Organisation/FindAddress", response);
+                return View("FindAddress", response);  //View("../EmployerAccountOrganisation/FindAddress", response);
             }
         }
 
